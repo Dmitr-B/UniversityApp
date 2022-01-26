@@ -1,0 +1,27 @@
+version: "3.9"
+services:
+  app:
+    build:
+      context: .
+    depends_on:
+      - postgres
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/university
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=1111
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    ports:
+      - 8080:8080
+  postgres:
+    image: library/postgres:latest
+    environment:
+      POSTGRES_DB: "university"
+      POSTGRES_UDER: "postgres"
+      POSTGRES_PASSWORD: "1111"
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres_volume:/data
+
+volumes:
+  postgres_volume:
